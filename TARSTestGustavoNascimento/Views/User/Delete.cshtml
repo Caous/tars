@@ -1,0 +1,27 @@
+@model TARSTestGustavoNascimento.Models.RegisterModel
+@{
+    ViewBag.Title = "Delete";
+}
+
+<hr />
+<dl class="dl-horizontal">
+    <dt>@Html.DisplayNameFor(model => model.UserName)</dt>
+    <dd>@Html.DisplayFor(model => model.UserName)</dd>
+    <dt>@Html.DisplayNameFor(model => model.Email)</dt>
+    <dd>@Html.DisplayFor(model => model.Email)</dd>
+    <dt>@Html.DisplayNameFor(model => model.fullname)</dt>
+    <dd>@Html.DisplayFor(model => model.fullname)</dd>
+    <dt>@Html.DisplayNameFor(model => model.departament)</dt>
+    <dd>@Html.DisplayFor(model => model.departament)</dd>
+</dl>
+
+<div class="modal-footer">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-actions no-color">
+            <input type="submit" value="Deletar" class="btn btn-succcess" />
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+        </div>
+    }
+</div>
