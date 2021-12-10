@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
 
 namespace TARSTestGustavoNascimento.Models
@@ -9,8 +10,7 @@ namespace TARSTestGustavoNascimento.Models
         public string departament { get; set; }
         public DateTime dt_inclused { get; set; }
         public DateTime dt_exclused { get; set; }
-
-
+        public virtual ICollection<IdentityUserClaim<string>> Claims { get; set; }
 
     }
 }

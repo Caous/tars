@@ -28,9 +28,9 @@ namespace TARSTestGustavoNascimento
             var serverVersion = new MySqlServerVersion(new Version(8, 0, 27));
 
             services.AddDbContext<ApplicationDbContext>(opt => opt.UseMySql(Configuration.GetConnectionString("DefaultConnnection"), serverVersion));
-            
+
             services.AddScoped<IUserRepository, UserRepository>();
-            
+
             services.AddIdentity<UserModel, IdentityRole>(options =>
             {
                 options.SignIn.RequireConfirmedEmail = false;
@@ -44,6 +44,11 @@ namespace TARSTestGustavoNascimento
             })
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
+
+            services.Configure<DataProtectionTokenProviderOptions>(
+                options => options.TokenLifespan = TimeSpan.FromHours(3));
+
+            services.ConfigureApplicationCookie(options => options.LoginPath = "/User/Login");
 
             services.AddControllersWithViews();
 
@@ -62,11 +67,13 @@ namespace TARSTestGustavoNascimento
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
